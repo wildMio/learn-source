@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="sidebar.css">
+</head>
+<body>
+  
+  <div class="sidebar">
+    <ul>
+      <li><a><ion-icon name="analytics"></ion-icon></a></li>
+      <li><a><ion-icon name="logo-angular"></ion-icon></a></li>
+      <li><a><ion-icon name="aperture"></ion-icon></a></li>
+      <li><a><ion-icon name="logo-apple"></ion-icon></a></li>
+      <li><a><ion-icon name="at"></ion-icon></a></li>
+      <li><a><ion-icon name="bonfire"></ion-icon></a></li>
+      <li><a><ion-icon name="bug"></ion-icon></a></li>
+    </ul>
+  </div>
+  
+  <a href="#" class="btn">
+    <ion-icon name="menu"></ion-icon>
+    <ion-icon class="hide" name="close"></ion-icon>
+  </a>
+
+  <div class="main-container">
+    content<br>
+    contentcontent<br>
+    contentcontentcontent<br>
+    contentcontentcontentcontentcontent<br>
+    contentcontentcontentcontentcontentcontent<br>
+    contentcontentcontentcontentcontentcontentcontent<br>
+  </div>
+
+  <script src="https://unpkg.com/ionicons@4.4.8/dist/ionicons.js"></script>
+
+  <script type="text/javascript">
+    const btn = document.querySelector('.btn');
+    const toggles = document.querySelectorAll('.btn ion-icon');
+    const sidebar = document.querySelector('.sidebar');
+    
+    btn.addEventListener('click', function() {
+      toggles.forEach(toggle => toggle.classList.toggle('hide'));
+      sidebar.classList.toggle('side');
+    });
+  </script>
+
+</body>
+</html>

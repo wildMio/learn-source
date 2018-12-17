@@ -1,0 +1,31 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #313131;
+}
+
+.slider {
+  width: 800px;
+  height: 400px;
+  background: #ffaaaa;
+  margin: 100px auto;
+  animation: slide 10s infinite;
+}
+
+@keyframes slide {
+  20% {
+    background: #aaffaa;
+  }
+  40% {
+    background: #aaaaff;
+  }
+  60% {
+    background: #ffffaa;
+  }
+  80% {
+    background: #aaffff;
+  }
+  100% {
+    background: #ffaaaa;
+  }
+}

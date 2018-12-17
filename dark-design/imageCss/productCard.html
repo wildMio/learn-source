@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://unpkg.com/ionicons@4.4.8/dist/ionicons.js"></script>
+  <link rel="stylesheet" href="productCard.css">
+</head>
+<body>
+
+  <div class="card">
+    <div class="top-section">
+
+      <img id="image-container" src="1.jpg">
+      <div class="nav">
+        <img src="1.jpg">
+        <img src="2.jpg">
+        <img src="3.jpg">
+      </div>
+      <div class="price">$80</div>
+
+    </div>
+
+    <div class="product-info">
+      <div class="name">good life</div>
+      <div class="dis">have a nice life</div>
+      <a href="#" class="btn">Add to Cart</a>
+    </div>
+  </div>
+
+  <script>
+    ;(function() {
+      let container = document.querySelector("#image-container");
+
+      let images = document.querySelectorAll('.nav img');
+      images.forEach(image => {
+        image.addEventListener('click', change_img);
+      });
+
+      function change_img({target: image}) {
+        container.src = image.src;
+      }
+    })();
+  </script>
+  
+</body>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    img {
+      /* display: inline-block; */
+      height:250px;
+      /* object-fit: cover; */
+    }
+  </style>
+</head>
+<body>
+
+  <h1>EXIF Example</h1>
+  <input type="file" name="file" id="file" accept="image/jpg,image/jpeg,image/png">
+  <br>
+
+  <img id="exif" src="https://www.daveperrett.com/images/articles/2012-07-28-exif-orientation-handling-is-a-ghetto/EXIF_Orientations.jpg" alt="">
+  <img id="origin">
+  <img id="target">
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/exif-js/2.3.0/exif.js'></script>
+  <script>
+    ;(function(EXIF) {
+      let origin = document.querySelector('#origin');
+      let target = document.querySelector('#target');
+
+      document.querySelector('#file').addEventListener('change', changeHandler);
+
+      async function changeHandler(e) {
+        let file = e.target.files[0];
+        // file => image => exif
+        try {
+          let src = await loadFile(file);
+          let img = await loadImage(src);
+          origin.src = src;
+          // console.log(img.width, img.height);
+          let {
+            // width = img.width, 
+            // height = img.height, 
+            rotate = 1
+          } = await loadEXIF(img);
+          // console.log(width, height, rotate);
+          // 預覽圖(src, width, height)
+
+          if (rotate !== 1) {
+            let rotated = getBase64(img, rotate);
+            src = rotated.src;
+            width = rotated.width;
+            height = rotated.height;
+            console.log(rotated);
+          }
+          
+          target.src = src;
+        } catch (e) {
+          throw e;
+        }
+      }
+
+      function loadFile(file) {
+        return new Promise((resolve, reject) => {
+          // FileReader
+
+          let reader = new FileReader();
+          reader.onload = () => resolve(reader.result);
+          reader.onerror = reject;
+          reader.readAsDataURL(file);
+        });
+      }
+
+      function loadImage(src) {
+        return new Promise((resolve, reject) => {
+          let img = new Image();
+          img.onload = () => resolve(img);
+          img.onerror = reject;
+          img.src = src;
+        });
+      }
+      
+      function loadEXIF(img) {
+        return new Promise((resolve, reject) => {
+          EXIF.getData(img, function() {
+            let tags = EXIF.getAllTags(this);
+            // console.log(tags);
+            resolve({
+              rotate: tags.Orientation,
+              // width: tags.PixelXDimension,
+              // height: tags.PixelYDimension
+            });
+          });
+        });
+      }
+
+      function getBase64(img, rotate) {
+        let canvas = document.createElement('canvas');
+        let ctx = canvas.getContext('2d');
+        let {width, height} = img;
+        // canvas.width = img.width;
+        // canvas.height = img.height;
+        // ctx.drawImage(img, 0, 0, img.width, img.height);
+
+        let scale = width > height ? 300 / width : 300 / height;
+        if (scale > 1) scale = 1;
+
+        let dw = width * scale;
+        let dh = height * scale;
+
+        canvas.width = rotate > 4 ? dh : dw;
+        canvas.height = rotate > 4 ? dw : dh;
+
+        let x = canvas.width / 2;
+        let y = canvas.height / 2;
+
+        ctx.translate(x, y);
+        // mirror
+        switch(rotate) {
+          case 2:
+          case 4:
+          case 5:
+          case 7:
+            ctx.scale(-1, 1);
+            break;
+        }
+        // rotate
+        switch(rotate) {
+          case 3: 
+          case 4:
+            ctx.rotate(180 * (Math.PI / 180));
+            break;
+          case 5:
+          case 6:
+            ctx.rotate(90 * (Math.PI /180));
+            break;
+          case 7:
+          case 8:
+            ctx.rotate(-90 * (Math.PI / 180));
+        }
+        
+        if (rotate > 4) {
+          [x, y] = [y, x];
+        }
+
+        ctx.drawImage(img, -x, -y, dw, dh);
+        // console.log(canvas);
+
+        return {
+          src: canvas.toDataURL(),
+          width: rotate > 4 ? img.height : img.width,
+          height: rotate > 4 ? img.width : img.height
+        };
+      }
+
+    })(EXIF);
+  </script>
+  
+</body>
+</html>

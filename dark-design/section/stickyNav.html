@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="stickyNan.css">
+</head>
+<body>
+
+  <div class="header">
+    <div class="navigation">
+      <a href="#">Home</a>
+      <a href="#">About</a>
+      <a href="#">Works</a>
+      <a href="#">Contact</a>
+    </div>
+  </div>
+
+  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat necessitatibus nostrum esse ipsam sunt non et maxime facere earum accusamus amet nihil architecto, eligendi nulla laboriosam consequatur ipsa veniam odio!
+  Provident earum esse dolor expedita praesentium incidunt deleniti! Et debitis mollitia, tempore velit optio, cupiditate non repellat est tenetur voluptatem quidem? Deleniti, corporis quibusdam totam quia porro eveniet id sit.
+  Nulla suscipit totam ea vitae, ab ut nostrum a aperiam cumque quo error porro cum similique animi at minus molestias delectus maxime neque quaerat rem dicta, distinctio veritatis dolor. Possimus.</p>
+  
+  <script>
+    (function() {
+      const nav = document.querySelector('.navigation');
+
+      window.addEventListener('scroll', function sticky() {
+        if (window.pageYOffset > nav.offsetTop) {
+          nav.classList.add('nav');
+        } else {
+          nav.classList.remove('nav');
+        }
+      });
+    })();
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://unpkg.com/ionicons@4.4.8/dist/ionicons.js"></script>
+  <link rel="stylesheet" href="tabImage.css">
+</head>
+<body>
+
+  <div class="images">
+    <img src="1.jpg" alt="">
+    <img src="2.jpg" alt="">
+    <img src="3.jpg" alt="">
+    <img src="4.jpg" alt="">
+  </div>
+
+  <div class="pre">
+    <ion-icon id="imgClose" name="close"></ion-icon>
+    <img src="1.jpg" alt="" id="p">
+  </div>
+
+  <script>
+    (function() {
+      let imgCloseBtn = document.querySelector('#imgClose');
+      let p = document.querySelector('#p');
+      let images = Array.from(document.querySelectorAll('.images img'));
+
+      imgCloseBtn.addEventListener('click', function() {
+        this.parentElement.style.display = 'none';
+      });
+
+      images.forEach((image) => {
+        image.addEventListener('click', function() {
+          changeImg(image);
+        });
+      });
+
+      function changeImg(image) {
+        p.src = image.src;
+        p.parentElement.style.display = 'block';
+      }
+    })();
+  </script>
+  
+</body>
+</html>

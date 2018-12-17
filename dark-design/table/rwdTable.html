@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+    .rwd-table {
+      width: 80%;
+      margin: 16px auto;
+      border: 2px solid #993333;
+    }
+    th, td {
+      border: 1px solid #333399;
+      text-align: center;
+    }
+    @media screen and (max-width: 800px) {
+      .rwd-table {
+        border: none;
+      }
+      .rwd-table thead {
+        display: none;
+      }
+      .rwd-table tr {
+        display: block;
+        border: 1px solid #339933;
+        margin-bottom: 20px;
+      }
+      .rwd-table td {
+        display: block;
+        text-align: left;
+        border: none;
+        padding-left: 4.5em;
+        text-indent: -4.5em;
+        padding-bottom: 6px;
+      }
+      .rwd-table td + td {
+        border-top: 1px solid #bbb;
+      }
+      .rwd-table td::before {
+        content: attr(data-title) ':';
+        color: #339999;
+        width: 4em;
+        overflow: hidden;
+        display: inline-block;
+        text-align: right;
+        padding-right: 6px;
+      }
+      .rwd-table td:first-child {
+        background-color: #333;
+        color: #ddd;
+      }
+      .rwd-table td:first-child::before {
+        content: 'NO : ';
+        color: #eee;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <table class="rwd-table">
+    <thead>
+      <tr>
+        <th>no</th>
+        <th>name</th>
+        <th>spec</th>
+        <th>price</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td data-title="no">001</td>
+        <td data-title="name">mio1</td>
+        <td data-title="spec">11*21cm Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptates id quia, velit explicabo accusantium et fugiat, assumenda aut itaque, nesciunt quis quas qui ab voluptatibus officia maxime ex architecto eveniet.</td>
+        <td data-title="price">100</td>
+      </tr>
+      <tr>
+        <td>002</td>
+        <td>mio2</td>
+        <td>12*22cm</td>
+        <td>200</td>
+      </tr>
+      <tr>
+        <td>003</td>
+        <td>mio3</td>
+        <td>13*23cm</td>
+        <td>300</td>
+      </tr>
+      <tr>
+        <td>004</td>
+        <td>mio4</td>
+        <td>14*24cm</td>
+        <td>400</td>
+      </tr>
+      <tr>
+        <td>005</td>
+        <td>mio5</td>
+        <td>15*25cm</td>
+        <td>500</td>
+      </tr>
+      <tr>
+        <td>006</td>
+        <td>mio6</td>
+        <td>16*26cm</td>
+        <td>600</td>
+      </tr>
+    </tbody>
+  </table>
+  
+</body>
+</html>

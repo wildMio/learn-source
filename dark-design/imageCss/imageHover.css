@@ -1,0 +1,39 @@
+body {
+  margin: 0;
+  padding: 0;
+  background: #f1f1f1;
+  font-family: 'intro';
+}
+.post {
+  width: 600px;
+  height: 400px;
+  position: relative;
+  cursor: pointer;
+  margin: 100px auto;
+}
+.post:hover .post-s {
+  width: 600px;
+}
+.post img {
+  display: block;
+  width: 600px;
+  height: 400px;
+}
+.post-s {
+  width: 0;
+  height: 400px;
+  background-color: rgba(103, 58, 183, 0.71);
+  position: absolute;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  transition: 0.7s ease-in-out;
+}
+.post-s > h2 {
+  color: white;
+  font-size: 50px;
+  border: 6px solid white;
+  padding: 10px 30px;
+}
