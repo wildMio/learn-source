@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .controller {
+      display: block;
+      padding: 6px 10px;
+      background-color: #000000;
+      color: white;
+      width: 300px;
+      text-decoration: none;
+    }
+    .text {
+      width: 200px;
+      padding: 20px;
+      background-color: #ccc;
+      display: none;
+    }
+    .text.x {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <a href="#" class="controller controller1">開/關</a>
+  <div class="text text1">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusamus tempora hic facere quod magni modi mollitia sunt deserunt fugiat. Unde animi inventore magni alias! Officia reiciendis tempore tenetur quaerat eius!</div>
+  <a href="#" class="controller controller2">開/關</a>
+  <div class="text text2">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusamus tempora hic facere quod magni modi mollitia sunt deserunt fugiat. Unde animi inventore magni alias! Officia reiciendis tempore tenetur quaerat eius!</div>
+  
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+  <script>
+    $(document).ready(function(){
+      $('.controller1').on('click', function() {
+        $('.text1').slideToggle();
+      });
+      $('.controller2').on('click', function() {
+        $('.text2').fadeToggle();
+      });
+    });
+  </script>
+</body>
+</html>
