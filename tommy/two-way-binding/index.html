@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    1. <input type="text" model="username" /> <br />
+    2. <input type="text" model="username" /> <br />
+    3. <input type="text" model="username" /> <br />
+
+    <script>
+      function setModel(name) {
+        var models = document.querySelectorAll(`[model='${name}']`);
+        Object.defineProperty(window, name, {
+          get: function() {
+            return models[0].value;
+          },
+          set: function(value) {
+            models.forEach(model => {
+              model.value = value;
+            });
+          }
+        });
+        models.forEach(model => {
+          model.addEventListener('input', function(e) {
+            window[name] = this.value;
+          });
+        });
+      }
+
+      setModel('username');
+    </script>
+  </body>
+</html>

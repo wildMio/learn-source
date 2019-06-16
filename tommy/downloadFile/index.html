@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .image-wrapper {
+      background-image: url('test.jpg');
+      width: 480px;
+      height: 480px;
+    }
+  </style>
+</head>
+<body>
+  <div class="image-wrapper"></div>
+
+  <a href="test.jpg">下載圖片 (x)</a>
+  <br>
+
+  <a href="demo.html">下載網頁 (x)</a>
+  <br>
+
+  <a class="download" href="test.jpg">下載圖片 (o)</a>
+  <br>
+  
+  <a class="download" href="demo.html">下載網頁 (o)</a>
+  <br>
+
+  <script>
+    function downloadHref(e, el) {
+      e.preventDefault();
+      getFile(el.href, function(data) {
+        saveFile(modifyContentType(data), el.pathname.substr(1));
+      });
+    }
+    
+    function getFile(url, callback) {
+      let xhr = new XMLHttpRequest();
+      xhr.open("GET", url);
+      xhr.addEventListener('load', function(res) {
+        // callback(res)
+        callback(xhr.response);
+      });
+      xhr.responseType = "arraybuffer";
+      xhr.send();
+    }
+    
+    function modifyContentType(arraybuffer) {
+      let blob = new Blob([arraybuffer], {
+        type: 'application/octet-stream'
+      });
+      return blob;
+    }
+
+    function saveFile(blob, filename) {
+      if (window.navigator.msSaveOrOpenBlob) {
+        window.navigator.msSaveOrOpenBlob(blob, filename);
+        return;
+      }
+
+      let link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    const downloads = document.querySelectorAll('.download');
+
+    Array.from(downloads).forEach(download => {
+      download.addEventListener('click', (e) => downloadHref(e, download), false);
+    });
+
+  </script>
+  
+</body>
+</html>

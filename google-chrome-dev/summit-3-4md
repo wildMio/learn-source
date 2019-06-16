@@ -1,0 +1,204 @@
+## Day1
+
+---
+### 3 - State of the Union for Speed Tooling
+tools:
+- lighthouse
+
+---
+### 4 - Speed Essentials
+Focus on three things:
+1. Images
+2. Web Fonts
+3. JavaScript
+
+#### Images
+These things shoud be automated & systematized
+- Appropriate **format**
+- Appropriate **compression**
+- Appropriate for **display size & density**
+- Loaded only when necessary **(lazy-loaded)**
+
+Use Video
+step1. Convert Animated gifs to vedio type(mpeg-4)
+ffmpeg -i dog.gif dog.mp4
+step2. Replace GIFs with Video
+```html
+<img src"dog.gif">
+<video autoplay loop muted playsinline>
+  <source src="dog.mp4" type="videp/mp4">
+</video>
+```
+
+WebP
+```html
+<picture>
+  <source type="image/webp" srcset="flower.webp">
+  <source type="image/jpeg" srcset="flower.jpg">
+  <img src="flower.jpg">
+</picture>
+```
+
+Web Conversion Tools:
+- imagemin % imagemin-webp (npm)
+- cwebp (CLI)
+- XnConvert (GUI)
+
+The AV1 video format
+
+Image Compression
+Imagemin
+
+Image Resizing Tooling
+npm packages:
+==Sharp==
++Fastest image resizing tool
+-installation requires compiling C++/C
+
+==Jimp== 
++Installation does not require cimpiling C++/C
+
+Serve Multiple Image Sizes
+```html
+<img srcset="flower-small.jpg 480w, flower-large.jpg 1080w"
+  sizes="50vw"
+  src="flower-large.jpg">
+```
+
+Lazy Loading
+npm packages:
+- lazysizes
+- lozad
+
+```html
+<head>
+  <script src="lazysizes.min.js" async></script>
+</head>
+<body>
+  <img data-src="flower.jpg" class="lazyload">
+</body>
+```
+
+Native Lazy Loading
+- `<img src="flower.jpg" lazyload="auto">`
+- `<img src="flower.jpg" lazyload="on">`
+- `<img src="flower.jpg" lazyload="off">`
+
+#### Fonts
+Flash of Unstyled Fonts
+@font-face {
+  font-family: 'Pacifico';
+  src: url(...pacifico.woff2) format('woff2');
+  font-display: swap;
+}
+
+#### JavaScript
+==Split your bundle==
+```javascript
+import('module')
+  .then(module => module.default)
+  .then(module => doSomethingCool(module))
+```
+
+Vue
+```javascript
+const router = new VueRouter({
+  routes: [
+    {
+      path: '/details',
+      component: () => import('./details.component')
+    }
+  ]
+})
+```
+
+Angular
+```typescript
+  const routes: Routes = [
+    {
+      path: 'details',
+      loadChildren: () => import('./details.module')
+    }
+  ];
+```
+
+React
+```jsx
+const DetailsComponent = lazy(() => import('./details.compoennt'));
+
+const PageComponent = () => (
+  <Suspense fallback={<div>Loading</div>}>
+    <DetailsComponent />
+  </Suspense>
+)
+```
+
+==Preload==
+```javascript
+<link rel="preload" as="script" href="critical.js">
+```
+
+==Only transpile what you need==
+Use @babel/preset-env
+```json
+{
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "target": "> 0.25%",
+        "useBuiltIns": "usage"
+      }
+    ]
+  ]
+}
+```
+
+Differential serve => ES Module
+"targets": {
+  "esmodules": true
+}
+
+```html
+<script type="module" src="main.mjs"></script>
+<script nomodule src="legacy.js"></script>
+```
+
+critical module
+```html
+<link rel="modulepreload" href="critical-module.mjs">
+```
+
+==Keep an eye on things==
+Find inused CSS and JS with the **Coverage** tab.
+
+Analyze your bundle with **Webpack Bundle Analyzer**
+
+Find the cost of a library with **Bundlephobia**
+
+==Set Budgets==
+Run Lighthouse in CI
+
+==Critical resources preloaded==
+```html
+<link rel="preload" href="..." as="image">
+<link rel="preload" href="..." as="font" crossorigin>
+<link rel="preload" href="..." as="fetch" crossorigin>
+```
+==Code splitting==
+```javascript
+const Product = asyncComponent(() => 
+  import('pages/Product' /* webpackChunkName: "product" */).then(
+    module => module.default
+  )
+);
+```
+
+==Budgets==
+bundlesize
+
+use the Network Information API
+`navigator.connection.saveData;`
+`navigator.connection.effectiveType;`
+
+visit! web.deb
